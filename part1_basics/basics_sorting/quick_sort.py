@@ -43,9 +43,10 @@ def qsort3(alist, lower, upper):
 
 
 if __name__ == '__main__':
-    unsortedArray = [6, 5, 3, 1, 8, 7, 2, 4]
+    unsortedArray = input()
+    # 6 5 3 1 8 7 2 4
+    unsortedArray = list(map(int, unsortedArray.split(' ')))
     # print(qsort1(unsortedArray))
-
     # qsort2(unsortedArray, 0, len(unsortedArray) - 1)
     qsort3(unsortedArray, 0, len(unsortedArray) - 1)
     print(unsortedArray)
