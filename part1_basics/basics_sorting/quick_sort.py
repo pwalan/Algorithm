@@ -8,6 +8,10 @@ def qsort1(alist):
 
 
 def qsort2(alist, l, u):
+    """in-place 原地快排
+    l:开始位置
+    u:结束位置
+    """
     if l >= u:
         return
     m = l
@@ -22,6 +26,7 @@ def qsort2(alist, l, u):
 
 
 def qsort3(alist, lower, upper):
+    """使用两个索引分别向右向左进行partition"""
     if lower >= upper:
         return
     pivot = alist[lower]
@@ -47,6 +52,7 @@ if __name__ == '__main__':
     # 6 5 3 1 8 7 2 4
     unsortedArray = list(map(int, unsortedArray.split(' ')))
     # print(qsort1(unsortedArray))
-    # qsort2(unsortedArray, 0, len(unsortedArray) - 1)
-    qsort3(unsortedArray, 0, len(unsortedArray) - 1)
+    # qsort2(unsortedArray, 1, len(unsortedArray) - 2)
+    qsort2(unsortedArray, 0, len(unsortedArray) - 1)
+    # qsort3(unsortedArray, 0, len(unsortedArray) - 1)
     print(unsortedArray)
