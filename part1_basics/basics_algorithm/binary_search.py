@@ -70,6 +70,6 @@ def search_range(array, target):
 
 
 if __name__ == '__main__':
-    arr = [5, 7, 7, 8, 8, 10]
-    target = 8
-    print(search_range(arr, 8))
+    arr = [1, 3, 5, 7, 9]
+    target = 6
+    print(binary_search(arr, target, 0, len(arr)))
