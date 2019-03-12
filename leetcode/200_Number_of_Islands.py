@@ -1,5 +1,6 @@
 from _ast import List
 
+# 使用并查集解决
 
 class UnionFind():
     def __init__(self, grid):
