@@ -1,55 +1,63 @@
 import sys
 
 
-def qsort(alist):
-    if len(alist) <= 1:
-        return alist
-    else:
-        pivot = alist[0]
-        return qsort([x for x in alist[1:] if x < pivot]) + [pivot] + qsort([x for x in alist[1:] if x >= pivot])
+class Node():
+    def __init__(self, prev, next, score, count):
+        self.prev = prev
+        self.next = next
+        self.score = score
+        self.count = count
 
 
-def search_range(array, target):
-    ret = [-1, -1]
-    if not array:
-        return ret
+def count_present(a):
+    mina = min(a)
+    minNode = Node(None, None, 0, 0)
+    nodes = []
+    for i in range(len(a)):
+        nodes.append(Node(None, None, a[i], 0))
+    nodes[0].next = nodes[1]
+    nodes[0].prev = nodes[-1]
+    nodes[-1].prev = nodes[-2]
+    nodes[-1].next = nodes[0]
+    if mina == a[0]:
+        minNode = nodes[0]
+        minNode.count = 1
+    if mina == a[-1]:
+        minNode = nodes[-1]
+        minNode.count = 1
 
-    st, ed = 0, len(array) - 1
-    while st + 1 < ed:
-        mid = int((st + ed) / 2)
-        if array[mid] == target:
-            ed = mid
-        elif array[mid] < target:
-            st = mid
+    for i in range(1, len(a) - 1):
+        nodes[i].prev = nodes[i - 1]
+        nodes[i].next = nodes[i + 1]
+        if mina == a[i]:
+            minNode = nodes[i]
+            minNode.count = 1
+
+    node = minNode.next
+    node.score = 2
+    res = 3
+    while node != minNode:
+        if node.next.score > node.score:
+            node.next.count = node.count + 1
+            res += node.count + 1
         else:
-            ed = mid
-    ret[0] = st
-    ret[1] = ed
-    return ret
+            node.next.count = node.count - 1
+            res += node.count - 1
+        node = node.next
+
+    print(res)
 
 
 if __name__ == "__main__":
     line0 = sys.stdin.readline().strip().split()
-    n = int(line0[0])
-    A = []
-    line1 = sys.stdin.readline().strip().split()
-    for i in range(n):
-        A.append(int(line1[i]))
-
-    for i in range(1, n):
-        tmpA = A[:i]
-        tmpA = qsort(tmpA)
-        bs = search_range(tmpA, A[i])
-        v1 = abs(A[i] - tmpA[bs[0]])
-        v2 = abs(A[i] - tmpA[bs[1]])
-        if v1 < v2:
-            print(str(v1) + " " + str(tmpA[bs[0]]))
-        else:
-            print(str(v2) + " " + str(tmpA[bs[1]]))
-
-    # for j in range(i):
-    #     res = abs(A[i] - A[j])
-    #     if res < minA:
-    #         minA = res
-    #         minAJ = A[j]
-    # print(str(minA) + " " + str(minAJ))
+    N = int(line0[0])
+    a = []
+    for _ in range(N):
+        n = int(sys.stdin.readline().strip())
+        tmp = []
+        line1 = sys.stdin.readline().strip().split()
+        for i in range(n):
+            tmp.append(int(line1[i]))
+        a.append(tmp)
+    for i in range(N):
+        count_present(a[i])
