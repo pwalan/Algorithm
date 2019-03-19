@@ -7,22 +7,22 @@ def qsort1(alist):
         return qsort1([x for x in alist[1:] if x < pivot]) + [pivot] + qsort1([x for x in alist[1:] if x >= pivot])
 
 
-def qsort2(alist, l, u):
+def qsort2(alist, l, r):
     """in-place 原地快排
     l:开始位置
     u:结束位置
     """
-    if l >= u:
+    if l >= r:
         return
     m = l
-    for i in range(l + 1, u + 1):
+    for i in range(l + 1, r + 1):
         if alist[i] < alist[l]:
             m += 1
             alist[m], alist[i] = alist[i], alist[m]
     # swap between m and l after partition, important!
     alist[m], alist[l] = alist[l], alist[m]
     qsort2(alist, l, m - 1)
-    qsort2(alist, m + 1, u)
+    qsort2(alist, m + 1, r)
 
 
 def qsort3(alist, lower, upper):
