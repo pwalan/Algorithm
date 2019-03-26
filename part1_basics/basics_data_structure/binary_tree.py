@@ -42,6 +42,15 @@ class Traversal(object):
             self.traverse_path.append(root.val)
 
 
+def serial_by_pre(head: TreeNode):
+    if head is None:
+        return "#_"
+    res = head.val + "_"
+    res += serial_by_pre(head.left)
+    res += serial_by_pre(head.right)
+    return res
+
+
 if __name__ == "__main__":
     pre_order = [1, 2, 4, 7, 3, 5, 6, 8]
     # pre_order = []
